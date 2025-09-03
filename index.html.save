@@ -1,0 +1,125 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>For My Sneha ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, pink, lightblue);
+      text-align: center;
+      font-family: cursive;
+      overflow-x: hidden;
+    }
+    h1 {
+      color: red;
+      font-size: 3em;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+    .photo {
+      width: 250px;
+      border-radius: 20px;
+      margin: 20px;
+      box-shadow: 0 0 20px rgba(255,0,0,0.6);
+      animation: float 3s infinite alternate;
+    }
+    @keyframes float {
+      from { transform: translateY(0); }
+      to { transform: translateY(-20px); }
+    }
+    .heart {
+      position: fixed;
+      width: 30px;
+      height: 30px;
+      background: url('https://cdn-icons-png.flaticon.com/512/833/833472.png') no-repeat center;
+      background-size: contain;
+      animation: fall 5s linear infinite;
+    }
+    @keyframes fall {
+      0% { transform: translateY(-50px); opacity: 1; }
+      100% { transform: translateY(100vh); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <h1>I Love You Sneha ❤️</h1>
+  <img src="sneha1.jpg" class="photo">
+  <img src="sneha2.jpg" class="photo">
+  <img src="sneha3.jpg" class="photo">
+  <script>
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.style.left = Math.random() * 100 + "vw";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+    setInterval(createHeart, 500);
+  </script>
+</body>
+</html>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  text-align: center;
+  overflow-x: hidden;
+}
+
+.container {
+  padding: 20px;
+}
+
+h1 {
+  font-size: 3rem;
+  color: white;
+  margin-top: 40px;
+}
+
+.typewriter {
+  color: #fff;
+  font-size: 1.5rem;
+  margin: 20px 0;
+  border-right: 3px solid #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typing 4s steps(40, end), blink 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink {
+  from, to { border-color: transparent }
+  50% { border-color: #fff }
+}
+
+/* Slideshow */
+.slideshow-container {
+  max-width: 400px;
+  position: relative;
+  margin: 40px auto;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0px 6px 12px rgba(0,0,0,0.4);
+}
+
+.slide {
+  display: none;
+}
+
+.slide img {
+  width: 100%;
+  border-radius: 20px;
+  animation: zoomIn 6s ease-in-out infinite;
+}
+
+.fade { animation-name: fade; an
