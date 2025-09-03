@@ -20,18 +20,18 @@
         font-size: 3em;
         margin-top: 50px;
         animation: fadeIn 2s ease-in-out;
-        z-index: 1;
+        z-index: 5;
         position: relative;
     }
 
+    /* Responsive slideshow */
     .slideshow {
-        margin-top: 40px;
+        width: 80%;
+        max-width: 300px;
+        height: auto;
         position: relative;
-        width: 300px;
-        height: 400px;
-        margin-left: auto;
-        margin-right: auto;
-        z-index: 0; /* Make sure slideshow is under popup hearts */
+        margin: 40px auto;
+        z-index: 1;
     }
 
     .slideshow img {
@@ -50,17 +50,17 @@
     .slideshow img.active {
         opacity: 1;
         transform: scale(1.05);
-        z-index: 0;
+        z-index: 1;
     }
 
-    /* Heart popup */
+    /* Click popup heart */
     .heart {
         position: absolute;
         font-size: 1.2em;
         color: #ff3366;
         pointer-events: none;
         animation: pop 1s forwards;
-        z-index: 10; /* Above photos */
+        z-index: 10;
     }
 
     @keyframes pop {
@@ -74,24 +74,13 @@
         100% { opacity: 1; }
     }
 
-    /* Floating hearts in background (behind photos) */
+    /* Floating hearts behind slideshow */
     .floating-heart {
         position: absolute;
-        font-size: 1.5em;
-        color: #ff6699;
         animation: floatUp linear;
         pointer-events: none;
-        z-index: 1; /* behind slideshow */
-    }
-
-    /* Tiny falling transparent hearts */
-    .falling-heart {
-        position: absolute;
-        font-size: 0.8em;
-        color: rgba(255, 51, 102, 0.5);
-        animation: fall linear;
-        pointer-events: none;
-        z-index: 0; /* behind everything */
+        z-index: 0;
+        color: #ff6699;
     }
 
     @keyframes floatUp {
@@ -99,9 +88,45 @@
         100% { transform: translateY(-100vh) scale(1.2); opacity: 0; }
     }
 
+    /* Falling hearts from top */
+    .falling-heart {
+        position: absolute;
+        animation: fall linear;
+        pointer-events: none;
+        z-index: 0;
+        color: rgba(255,51,102,0.5);
+    }
+
     @keyframes fall {
         0% { transform: translateY(-10px) rotate(0deg); opacity: 0.7; }
         100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* Tiny sparkles */
+    .sparkle {
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        background: rgba(255,255,255,0.7);
+        border-radius: 50%;
+        z-index: 0;
+        animation: twinkle linear;
+    }
+
+    @keyframes twinkle {
+        0% { opacity: 0; transform: scale(0.5); }
+        50% { opacity: 1; transform: scale(1.2); }
+        100% { opacity: 0; transform: scale(0.5); }
+    }
+
+    /* Optional heartbeat animation for header */
+    @keyframes heartbeat {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+    }
+
+    h1:hover {
+        animation: heartbeat 1s infinite;
     }
 </style>
 </head>
@@ -115,10 +140,9 @@
     </div>
 
 <script>
+// Slideshow
 const slides = document.querySelectorAll('.slideshow img');
 let currentIndex = 0;
-
-// Slideshow
 function nextSlide() {
     slides[currentIndex].classList.remove('active');
     currentIndex = (currentIndex + 1) % slides.length;
@@ -126,7 +150,7 @@ function nextSlide() {
 }
 setInterval(nextSlide, 3000);
 
-// Click heart popup above photos
+// Click popup heart above everything
 function showHeart(event) {
     const heart = document.createElement('div');
     heart.className = 'heart';
@@ -150,17 +174,32 @@ function createFloatingHeart() {
 }
 setInterval(createFloatingHeart, 500);
 
-// Tiny falling hearts from top
+// Falling hearts from top
 function createFallingHeart() {
     const heart = document.createElement('div');
     heart.className = 'falling-heart';
     heart.style.left = Math.random() * window.innerWidth + 'px';
+    heart.style.fontSize = (Math.random() * 1.2 + 0.8) + 'em';
     heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
+    heart.style.opacity = Math.random() * 0.6 + 0.3;
+    heart.style.transform = `rotate(${Math.random()*360}deg)`;
     heart.innerText = "❤️";
     document.body.appendChild(heart);
     setTimeout(() => heart.remove(), 6000);
 }
-setInterval(createFallingHeart, 300);
+setInterval(createFallingHeart, 200);
+
+// Tiny sparkles
+function createSparkle() {
+    const sparkle = document.createElement('div');
+    sparkle.className = 'sparkle';
+    sparkle.style.left = Math.random() * window.innerWidth + 'px';
+    sparkle.style.top = Math.random() * window.innerHeight + 'px';
+    sparkle.style.animationDuration = (Math.random() * 3 + 2) + 's';
+    document.body.appendChild(sparkle);
+    setTimeout(() => sparkle.remove(), 5000);
+}
+setInterval(createSparkle, 150);
 </script>
 </body>
 </html>
