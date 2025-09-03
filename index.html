@@ -22,23 +22,32 @@
         animation: fadeIn 2s ease-in-out;
     }
 
-    .images {
+    .slideshow {
         margin-top: 40px;
+        position: relative;
+        width: 300px;
+        height: 400px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
-    .images img {
-        width: 250px;
+    .slideshow img {
+        width: 100%;
         height: auto;
-        margin: 20px;
         border-radius: 15px;
         box-shadow: 0px 4px 15px rgba(0,0,0,0.3);
-        transition: transform 0.3s, box-shadow 0.3s;
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        transition: opacity 1s ease-in-out, transform 0.5s;
         cursor: pointer;
     }
 
-    .images img:hover {
-        transform: scale(1.1) rotate(-2deg);
-        box-shadow: 0px 8px 20px rgba(0,0,0,0.5);
+    .slideshow img.active {
+        opacity: 1;
+        transform: scale(1.05);
+        z-index: 1;
     }
 
     /* Heart popup */
@@ -64,13 +73,28 @@
 </head>
 <body onclick="showHeart(event)">
     <h1>Sneha, I Love You ❤️</h1>
-    <div class="images">
-        <img src="images/pic1.jpg" alt="Sneha Photo 1">
+
+    <div class="slideshow">
+        <img src="images/pic1.jpg" class="active" alt="Sneha Photo 1">
         <img src="images/pic2.jpg" alt="Sneha Photo 2">
         <img src="images/pic3.jpg" alt="Sneha Photo 3">
     </div>
 
 <script>
+const slides = document.querySelectorAll('.slideshow img');
+let currentIndex = 0;
+
+// Function to show the next slide
+function nextSlide() {
+    slides[currentIndex].classList.remove('active');
+    currentIndex = (currentIndex + 1) % slides.length;
+    slides[currentIndex].classList.add('active');
+}
+
+// Change slide every 3 seconds
+setInterval(nextSlide, 3000);
+
+// Heart popup function
 function showHeart(event) {
     const heart = document.createElement('div');
     heart.className = 'heart';
@@ -81,7 +105,7 @@ function showHeart(event) {
 
     setTimeout(() => {
         heart.remove();
-    }, 1000); // Remove after 1 second
+    }, 1000);
 }
 </script>
 </body>
